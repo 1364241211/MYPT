@@ -6,14 +6,14 @@
     <van-tab title="登记(教师)">
       <component :is="EnrollTeacher"></component>
     </van-tab>
-    <van-tab title="充值说明">
+    <!-- <van-tab title="充值说明">
       <div class="md-preview">
         <component :is="PreviewMd" :edId="'recharge'" :type="2"></component>
       </div>
     </van-tab>
     <van-tab title="查询">
       <component :is="EnrollSearch"></component>
-    </van-tab>
+    </van-tab> -->
   </van-tabs>
 </template>
 

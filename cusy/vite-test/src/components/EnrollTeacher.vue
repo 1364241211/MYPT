@@ -303,10 +303,13 @@ const uploadImage = async (): Promise<void> => {
   const file = fileInput.value?.files?.item(0);
   const { dataUrl, size } = await useImageCompress(file as Blob);
   const { res, error } = await useRequest(
-    "./uploadAvatar",
+    "./uploadTeacherAvatar",
     METHOD.POST,
     JSON.stringify({
-      avatarName: `${form.teacher_id}.${file?.type.replace("image/", "")}`,
+      avatarName: `${form.teacher_name}_${form.teacher_id}.${file?.type.replace(
+        "image/",
+        ""
+      )}`,
       avatarSize: size.value,
       avatar: dataUrl.value,
     })

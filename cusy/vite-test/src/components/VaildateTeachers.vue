@@ -47,7 +47,7 @@
       >
       </el-table-column>
       <el-table-column
-        prop="teacher_id"
+        prop="teacher_name"
         label="教师姓名"
         align="center"
         width="100"

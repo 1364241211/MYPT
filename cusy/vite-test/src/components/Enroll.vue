@@ -37,32 +37,6 @@
         >
         </van-field>
         <van-field
-          type="text"
-          v-model="form.grade"
-          name="grade"
-          label="学生年级"
-          placeholder="请输入学生工号"
-          required
-        >
-        </van-field>
-        <van-popup
-          :show="showPicker"
-          round
-          position="bottom"
-          style="width: 100vw"
-        >
-          <van-picker
-            title="学生批次"
-            :columns="
-              classes.map((ele:any) => {
-                return ele.class_name;
-              })
-            "
-            @cancel="showPicker = false"
-            @confirm="onConfirm"
-          />
-        </van-popup>
-        <van-field
           v-model="form.class_name"
           name="class_name"
           label="学生批次"
@@ -80,15 +54,36 @@
           position="bottom"
           style="width: 100vw"
         >
-          <van-picker
-            title="学生批次"
-            :columns="
-              classes.map((ele:any) => {
-                return ele.class_name;
-              })
-            "
-            @cancel="showPicker = false"
-            @confirm="onConfirm"
+          <van-cascader
+            v-model="cascaderValue"
+            :options="options"
+            @cliose="showPicker = false"
+            @finish="onfinsh"
+          />
+        </van-popup>
+        <van-field
+          v-model="form.apartment"
+          name="apartment"
+          label="学生寝室"
+          placeholder="请选择学生寝室"
+          required
+          :rules="formRules.class_name"
+          is-link
+          readonly
+          @click="showApartmentPicker = true"
+        >
+        </van-field>
+        <van-popup
+          :show="showApartmentPicker"
+          round
+          position="bottom"
+          style="width: 100vw"
+        >
+          <van-cascader
+            v-model="cascaderApartmentValue"
+            :options="apratment"
+            @cliose="showApartmentPicker = false"
+            @finish="onApartmentfinsh"
           />
         </van-popup>
         <van-field
@@ -209,6 +204,7 @@
 <script lang="ts" setup>
 import { onMounted, reactive, ref } from "vue";
 import { FieldRule, FormInstance, Notify } from "vant";
+import type { CascaderOption } from "vant";
 import PreviewMdVue from "./PreviewMd.vue";
 
 import router from "../router";
@@ -216,7 +212,7 @@ import checkID from "../util/RegexVaild";
 import service from "../util/api";
 import type { classType, resMessage } from "../types";
 import { useRequest } from "../hooks/useReqest";
-import { METHOD } from "../types";
+import { METHOD, options, apratment } from "../types";
 import { useImageCompress } from "../hooks/useImageCompress";
 
 const dialogShow = ref(false);
@@ -340,9 +336,13 @@ const subPost = async () => {
       student_id: form.student_id,
       class_id: form.class_id,
       class_name: form.class_name,
-      customer_photo: `${form.customer_id}.${fileInput.value?.files
-        ?.item(0)
-        ?.type.replace("image/", "")}`,
+      apartment_id: form.apartment_id,
+      apartment: form.apartment,
+      department_name: form.department_name,
+      grade: form.grade,
+      customer_photo: `${form.customer_name}_${
+        form.student_id
+      }.${fileInput.value?.files?.item(0)?.type.replace("image/", "")}`,
     })
   );
   if (res.value) {
@@ -418,7 +418,9 @@ const uploadImage = async (): Promise<void> => {
     "./uploadAvatar",
     METHOD.POST,
     JSON.stringify({
-      avatarName: `${form.customer_id}.${file?.type.replace("image/", "")}`,
+      avatarName: `${form.customer_name}_${
+        form.student_id
+      }.${file?.type.replace("image/", "")}`,
       avatarSize: size.value,
       avatar: dataUrl.value,
     })
@@ -430,6 +432,25 @@ const uploadImage = async (): Promise<void> => {
   } else if (error.value) {
     Notify({ type: "danger", message: error.value });
   }
+};
+
+const cascaderValue = ref("");
+const onfinsh = ({ selectedOptions }: any) => {
+  showPicker.value = false;
+  console.log(selectedOptions);
+  form.department_name = selectedOptions.at(0)?.text!;
+  form.grade = selectedOptions.at(1)?.text!;
+  form.class_name = selectedOptions.at(2)?.text!;
+  console.log(form);
+};
+// 寝室选择
+const showApartmentPicker = ref(false);
+const cascaderApartmentValue = ref("");
+const onApartmentfinsh = ({ selectedOptions }: any) => {
+  showApartmentPicker.value = false;
+  form.apartment = selectedOptions.at(0)?.text!;
+  form.apartment_id = selectedOptions.at(0)?.value! as number;
+  console.log(form);
 };
 
 // 组件挂载时钩子函数

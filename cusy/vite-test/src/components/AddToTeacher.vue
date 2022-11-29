@@ -254,7 +254,7 @@ const updateCustomer = () => {
     if (value) {
       classes.value.map((ele) => {
         if (ele.class_name == forms.teacher_department) {
-          forms.teacher_department = ele.class_group;
+          // forms.teacher_department = ele.class_group;
         }
       });
       let formData = {
@@ -303,7 +303,7 @@ onMounted(async () => {
     classes.value = res.value as classType[];
     classes.value.map((ele) => {
       if (ele.class_name == forms.teacher_department) {
-        forms.class_id = ele.class_group;
+        // forms.class_id = ele.class_group;
       }
     });
   } else if (error.value) {

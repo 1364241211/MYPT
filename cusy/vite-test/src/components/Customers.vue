@@ -10,7 +10,7 @@
             @click="moderateUsers(2)"
             >驳回 ({{ buttonEnable ? 0 : selectionRows }})</el-button
           >
-          <el-tooltip
+          <!-- <el-tooltip
             content="点击后<strong style='color:red'><i>使用新生导入模版<i></strong>导出<strong style='color:red'><i>当前页面<i></strong>的数据"
             raw-content
           >
@@ -21,9 +21,9 @@
               class="button-transion"
               >单页导出(新生导入模版)
             </el-button></el-tooltip
-          >
+          > -->
           <el-tooltip
-            content="点击后<strong style='color:red'><i>使用新生导入模版<i></strong>导出<strong style='color:red'><i>所有页面<i></strong>的数据"
+            content="点击后</strong>导出<strong style='color:red'><i>所有页面<i></strong>的数据"
             raw-content
           >
             <el-button
@@ -34,7 +34,7 @@
               >全部导出(新生导入模版)
             </el-button></el-tooltip
           >
-          <el-tooltip
+          <!-- <el-tooltip
             content="点击后<strong style='color:red'><i>使用人脸识别模版<i></strong>导出<strong style='color:red'><i>当前页面<i></strong>的数据"
             raw-content
           >
@@ -59,7 +59,7 @@
               class="button-transion"
               >全部导出(人脸识别模版)
             </el-button></el-tooltip
-          >
+          > -->
         </el-button-group>
         <el-input
           v-model="search"
@@ -131,20 +131,25 @@
           align="center"
         ></el-table-column>
         <el-table-column
-          prop="class_name"
-          label="学生批次"
+          prop="department_name"
+          label="学生专业"
           align="center"
-          :filters="classFilters"
-          :filter-method="calssFiltersMethod"
         ></el-table-column>
         <el-table-column
           prop="grade"
           label="学生所在年级"
           align="center"
         ></el-table-column>
+        <!-- <el-table-column
+          prop="class_name"
+          label="学生班级"
+          align="center"
+          :filters="classFilters"
+          :filter-method="calssFiltersMethod"
+        ></el-table-column> -->
         <el-table-column
-          prop="department_name"
-          label="学生专业"
+          prop="class_name"
+          label="学生班级"
           align="center"
         ></el-table-column>
         <el-table-column

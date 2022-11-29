@@ -78,16 +78,41 @@
         align="center"
       ></el-table-column>
       <el-table-column
-        prop="parent_phone"
-        label="家长手机号"
+        prop="student_id"
+        label="学生工号"
         align="center"
       ></el-table-column>
       <el-table-column
-        prop="class_name"
-        label="学生批次"
+        prop="department_name"
+        label="学生专业"
         align="center"
-        :filter-method="classFiltersMethod"
-        :filters="classFilters"
+      ></el-table-column>
+      <el-table-column
+        prop="grade"
+        label="学生所在年级"
+        align="center"
+      ></el-table-column>
+      <!-- <el-table-column
+          prop="class_name"
+          label="学生班级"
+          align="center"
+          :filters="classFilters"
+          :filter-method="calssFiltersMethod"
+        ></el-table-column> -->
+      <el-table-column
+        prop="class_name"
+        label="学生班级"
+        align="center"
+      ></el-table-column>
+      <el-table-column
+        prop="apartment_id"
+        label="寝室号"
+        align="center"
+      ></el-table-column>
+      <el-table-column
+        prop="apartment"
+        label="寝室楼栋"
+        align="center"
       ></el-table-column>
       <el-table-column
         prop="customer_logtime"
