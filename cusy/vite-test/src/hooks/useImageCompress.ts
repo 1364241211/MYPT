@@ -8,9 +8,9 @@ export async function useImageCompress(data: Blob) {
   const error = ref();
   let compressValue = null;
   const isImage = /image/.test(data.type);
-  if (isImage && data.size > 1024 * 1024 * 2) {
+  if (isImage && data.size > 1024 * 2) {
     try {
-      compressValue = await compressAccurately(data, 512);
+      compressValue = await compressAccurately(data, 200);
     } catch (err) {
       error.value = err;
     }
@@ -23,7 +23,7 @@ export async function useImageCompress(data: Blob) {
     error.value = err;
   }
   size.value = dataUrl.value?.length;
-  realUrl.value = dataUrl.value
+  realUrl.value = dataUrl.value;
   dataUrl.value = dataUrl.value?.replace(/data:\w+\/\w+;base64,/, "");
-  return { dataUrl, size, error , realUrl};
+  return { dataUrl, size, error, realUrl };
 }

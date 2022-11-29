@@ -78,7 +78,7 @@ class customerApiViewSet(ModelViewSet):
         if "customer_id" not in request.GET:
             return Response(message(status="failed", code=404, message="身份证号码是必须的!"))
         customer_id = request.GET.get("customer_id")
-        request.data.update({"is_valided": 1})
+        request.data.update({"is_valided": 0})
         newData = request.data
         try:
             customer = self.get_queryset().get(customer_id=customer_id)
@@ -119,24 +119,24 @@ class customerApiViewSet(ModelViewSet):
         status = request.GET.get("status")
         dataList = request.data.get("idList")
         messageList = list()
-        try:
-            if dataList:
-                for data in dataList:
-                    customer = Customers.objects.get(pk=data)
-                    customer.is_valided = status
-                    customer.save()
-                    # 获取对应id的电话号码
-                    customer_phone = customer.parent_phone
-                    # 发送短信
-                    aliMessage.main([customer_phone], ["四川信管"])
-                    newMessage = message(
-                        status="success", code=200, message="OK")
-                    messageList.append(newMessage)
+        # try:
+        if dataList:
+            for data in dataList:
+                customer = Customers.objects.get(pk=data)
+                customer.is_valided = status
+                customer.save()
+                # 获取对应id的电话号码
+                # customer_phone = customer.parent_phone
+                # 发送短信
+                # aliMessage.main([customer_phone], ["四川信管"])
+                # newMessage = message(
+                #     status="success", code=200, message="OK")
+                # messageList.append(newMessage)
             return Response(message(status="success", code=200, message="Ok", kwargs={"results": messageList}),
                             status=200)
-        except Exception as e:
-            return Response(message(status="failed", code=400, message="短信发送失败", kwargs={"info": e.args[0]}),
-                            status=200)
+        # except Exception as e:
+            # return Response(message(status="failed", code=400, message="短信发送失败", kwargs={"info": e.args[0]}),
+            # status=200)
 
 
 class customerGeneralApi(ModelViewSet):

@@ -1,6 +1,6 @@
 <template>
   <div class="main">
-    <header>东辰饭卡登记表</header>
+    <header>绵职校登记表</header>
     <van-form
       colon
       label-width="8em"
@@ -39,7 +39,7 @@
         <van-field
           v-model="form.class_name"
           name="class_name"
-          label="学生批次"
+          label="学生班级"
           placeholder="请选择学生班级"
           required
           :rules="formRules.class_name"
@@ -67,7 +67,6 @@
           label="学生寝室"
           placeholder="请选择学生寝室"
           required
-          :rules="formRules.class_name"
           is-link
           readonly
           @click="showApartmentPicker = true"
@@ -327,6 +326,7 @@ const idIsExist = ref(false);
 
 // 提交post请求到服务器
 const subPost = async () => {
+  console.log(form);
   const { res, error } = await useRequest(
     "/customerGeneralApi",
     METHOD.POST,
@@ -384,6 +384,7 @@ const submitForm = () => {
     Notify({ type: "danger", message: "请选择学生照片" });
     return;
   }
+  console.log(form);
   wait.value = true;
   formInstance.value
     ?.validate()
@@ -446,6 +447,7 @@ const onfinsh = ({ selectedOptions }: any) => {
 // 寝室选择
 const showApartmentPicker = ref(false);
 const cascaderApartmentValue = ref("");
+
 const onApartmentfinsh = ({ selectedOptions }: any) => {
   showApartmentPicker.value = false;
   form.apartment = selectedOptions.at(0)?.text!;

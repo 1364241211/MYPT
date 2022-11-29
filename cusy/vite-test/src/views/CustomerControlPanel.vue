@@ -2,7 +2,7 @@
   <div class="common-layout">
     <el-container>
       <el-header>
-        <div class="left-header">东辰后台管理系统</div>
+        <div class="left-header">绵职校后台管理系统</div>
         <div class="right-header">
           <span>您好,账号为： {{ admin_account }}</span
           >,<span>{{ admin_name }}</span>

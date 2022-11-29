@@ -45,7 +45,7 @@ class customerSerializer(serializers.ModelSerializer):
     customer_name = serializers.CharField(max_length=5)
     # 手机号验证
     # apartment_name = serializers.RegexField(regex=r"^1[35678]\d{9}$")
-    student_id = serializers.IntegerField()
+    student_id = serializers.CharField()
     customer_photo = serializers.CharField()
     class_id = serializers.IntegerField()
     class_name = serializers.CharField()
@@ -60,8 +60,12 @@ class customerSerializer(serializers.ModelSerializer):
 
     def update(self, instance, validated_data):
         instance.customer_id = validated_data.get("customer_id")
+        instance.student_id = validated_data.get("student_id")
         instance.customer_name = validated_data.get("customer_name")
-        instance.parent_phone = validated_data.get("parent_phone")
+        instance.department_name = validated_data.get("department_name")
+        instance.apartment = validated_data.get("apartment")
+        instance.apartment_id = validated_data.get("apartment_id")
+        instance.grade = validated_data.get("grade")
         instance.customer_photo = validated_data.get("customer_photo")
         instance.class_id = validated_data.get("class_id")
         instance.class_name = validated_data.get("class_name")

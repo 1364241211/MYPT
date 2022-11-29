@@ -76,7 +76,7 @@
           >
             <!-- :src= '/static/avatar/' + scope.row.teacher_photo-->
             <el-image
-              :src="'http://127.0.0.1/static/avatar/' + scope.row.teacher_photo"
+              :src="'/static/avatar/' + scope.row.teacher_photo"
               style="height: 100px; width: 80px"
               fit="cover"
               :lazy="true"

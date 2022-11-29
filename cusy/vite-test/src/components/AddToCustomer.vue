@@ -17,7 +17,7 @@
         <el-form-item label="学生身份证号码" prop="customer_id">
           <el-input v-model="forms.customer_id"></el-input>
         </el-form-item>
-        <el-form-item label="家长电话" prop="parent_phone">
+        <el-form-item label="学生工号" prop="student_id">
           <el-input v-model="forms.parent_phone"></el-input>
         </el-form-item>
         <el-form-item label="学生照片">

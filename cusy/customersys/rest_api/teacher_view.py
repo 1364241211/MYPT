@@ -1,4 +1,3 @@
-
 import os.path
 import re
 import time
@@ -74,7 +73,7 @@ class teacherApiViewSet(ModelViewSet):
         if "teacher_id" not in request.GET:
             return Response(message(status="failed", code=404, message="教师工号是必须的!"))
         teacher_id = request.GET.get("teacher_id")
-        request.data.update({"is_valided": 1})
+        request.data.update({"is_valided": 0})
         newData = request.data
         try:
             teacher = self.get_queryset().get(teacher_id=teacher_id)
@@ -110,24 +109,24 @@ class teacherApiViewSet(ModelViewSet):
         status = request.GET.get("status")
         dataList = request.data.get("idList")
         messageList = list()
-        try:
-            if dataList:
-                for data in dataList:
-                    teacher = Teacher.objects.get(pk=data)
-                    teacher.is_valided = status
-                    teacher.save()
-                    # 获取对应id的电话号码
-                    teacher_phone = teacher.teacher_phone
-                    # 发送短信
-                    aliMessage.main([teacher_phone], ["四川信管"])
-                    newMessage = message(
-                        status="success", code=200, message="OK")
-                    messageList.append(newMessage)
+        # try:
+        if dataList:
+            for data in dataList:
+                teacher = Teacher.objects.get(pk=data)
+                teacher.is_valided = status
+                teacher.save()
+                # 获取对应id的电话号码
+                # teacher_phone = teacher.teacher_phone
+                # 发送短信
+                # aliMessage.main([teacher_phone], ["四川信管"])
+                # newMessage = message(
+                # status="success", code=200, message="OK")
+                # messageList.append(newMessage)
             return Response(message(status="success", code=200, message="Ok", kwargs={"results": messageList}),
                             status=200)
-        except Exception as e:
-            return Response(message(status="failed", code=400, message="短信发送失败", kwargs={"info": e.args[0]}),
-                            status=200)
+        # except Exception as e:
+            # return Response(message(status="failed", code=400, message="短信发送失败", kwargs={"info": e.args[0]}),
+            # status = 200)
 
 
 class teacherGeneralApi(ModelViewSet):
