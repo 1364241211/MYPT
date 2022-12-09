@@ -174,8 +174,11 @@ class teacherGeneralApi(ModelViewSet):
         except Exception as e:
             return Response(message('failed', 404, e.args[0]), status=200)
         if teacher is not None:
-            request.data.update({"is_valided": teacher.is_valided})
-            serializer = customerSerializer(teacher, request.data)
+            # 重复提交将用户打成未审核
+            # request.data.update({"is_valided": 0})
+            request.data["is_valided"] = 0
+            print(request.data)
+            serializer = teacherSerializer(teacher, request.data)
             if not serializer.is_valid():
                 return Response(message(status='failed', code=403, message=serializer.errors), status=200)
             serializer.save()

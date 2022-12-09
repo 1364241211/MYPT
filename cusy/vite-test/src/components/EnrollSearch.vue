@@ -14,7 +14,7 @@
       <van-field
         v-model="searchTypeV"
         is-link
-        readeonly
+        readonly
         label="查询类型"
         placeholder="学生"
         @click="showSearchTypePicker = true"
@@ -150,7 +150,7 @@ const userInfo: customer = reactive({
   is_valided: "",
   department_name: "",
   apartment: "",
-  apartment_id: 0,
+  apartment_id: "",
   grade: "",
 });
 const teacherInfo: teacher = reactive({
@@ -284,7 +284,10 @@ const search = (type: number) => {
     }
   }
 };
-const searchTypes = ref(["学生", "教师"]);
+const searchTypes = ref([
+  { text: "学生", value: "s" },
+  { text: "教师", value: "t" },
+]);
 const searchValue = ref("");
 const searchType = ref(0);
 const searchTypeV = ref("");

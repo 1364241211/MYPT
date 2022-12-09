@@ -32,6 +32,8 @@ class customersOp():
         with self.sync_lock:
             shutil.rmtree(self.zipFilePath, onerror=remove_readonly)
             shutil.rmtree(self.staticPath, onerror=remove_readonly)
+            os.mkdir(self.staticPath)
+            os.mkdir(self.zipFilePath)
 
     def readAvatarZip(self, zipFileName: str, filters: list = None, zipInfoType: int = 0):
         tempName = zipFileName

@@ -54,7 +54,7 @@ const asideMenuList = ref<Array<MenuItem>>([
     itemName: "教师审核",
     iconName: "UserFilled",
   },
-  { routeIndex: "adDesign", itemName: "通知定制", iconName: "VideoPlay" },
+  // { routeIndex: "adDesign", itemName: "通知定制", iconName: "VideoPlay" },
   // { routeIndex: "rechargeNotice", itemName: "充值通知", iconName: "Present" },
   // { routeIndex: "classesControl", itemName: "班级管理", iconName: "School" },
   // { routeIndex: "exportAvatar", itemName: "用户头像导出", iconName: "Money" },

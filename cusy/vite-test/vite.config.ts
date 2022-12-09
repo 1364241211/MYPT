@@ -11,17 +11,18 @@ import legacy from "@vitejs/plugin-legacy";
 export default defineConfig({
   base: "/",
   build: {
+    chunkSizeWarningLimit: 1500,
     rollupOptions: {
       output: {
-        manualChunks(id) {
-          if (id.includes("node_modules")) {
-            return id
-              .toString()
-              .split("node_modules/")[1]
-              .split("/")[0]
-              .toString();
-          }
-        },
+        // manualChunks(id) {
+        //   if (id.includes("node_modules")) {
+        //     return id
+        //       .toString()
+        //       .split("node_modules/")[1]
+        //       .split("/")[0]
+        //       .toString();
+        //   }
+        // },
       },
     },
   },
@@ -35,7 +36,8 @@ export default defineConfig({
       resolvers: [ElementPlusResolver(), VantResolver()],
     }),
     legacy({
-      targets: ["defaults", "not IE 11"],
+      targets: ["> 1%, last 1 version, ie >= 11"],
+      additionalLegacyPolyfills: ["regenerator-runtime/runtime"],
     }),
   ],
   server: {

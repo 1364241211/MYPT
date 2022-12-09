@@ -94,7 +94,7 @@ class Customers(models.Model):
     class_name = models.CharField(db_column='class_Name', max_length=255)
     is_valided = models.IntegerField(db_column='is_valided')
     apartment = models.CharField(db_column='apartment', max_length=255)
-    apartment_id = models.IntegerField(db_column='apartment_id')
+    apartment_id = models.CharField(db_column='apartment_id', max_length=255)
     department_name = models.CharField(
         db_column='department_name', max_length=255)
     grade = models.CharField(db_column='grade', max_length=255)

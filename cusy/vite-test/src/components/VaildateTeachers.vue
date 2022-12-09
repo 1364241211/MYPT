@@ -54,7 +54,7 @@
       ></el-table-column>
       <el-table-column
         prop="teacher_id"
-        label="教师工号"
+        label="教师身份证号"
         align="center"
       ></el-table-column>
       <el-table-column
@@ -64,7 +64,7 @@
       ></el-table-column>
       <el-table-column
         prop="teacher_department"
-        label="教师职称"
+        label="职务"
         align="center"
         :filter-method="classFiltersMethod"
         :filters="classFilters"

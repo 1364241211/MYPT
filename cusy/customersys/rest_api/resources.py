@@ -5,18 +5,21 @@ from .models import Customers, Teacher
 
 
 class customersResources(resources.ModelResource):
-    student_id = Field(attribute="student_id", column_name="学（工）号")
+    # student_id = Field(attribute="student_id", column_name="学（工）号")
     customer_name = Field(attribute="customer_name", column_name="学生姓名")
     customer_id = Field(attribute="customer_id", column_name="学生身份证号码")
     department_name = Field(attribute="department_name", column_name="专业")
     grade = Field(attribute="grade", column_name="年级")
     class_name = Field(attribute="class_name", column_name="班级")
-    custoemr_logtime = Field(attribute="customer_logtime", column_name="学生登记时间")
+    apartment = Field(attribute="apartment", column_name="寝室楼栋")
+    apartment_id = Field(attribute="apartment_id", column_name="寝室号")
+    custoemr_logtime = Field(
+        attribute="customer_logtime", column_name="学生登记时间")
     is_valided = Field(attribute="is_valided", column_name="审核结果")
 
     class Meta:
         model = Customers
-        exclude = ("customer_photo", "apartment_id", "class_id")
+        exclude = ("customer_photo", "class_id", "student_id")
         export_order = ("id",)
 
     def dehydrate_is_valided(self, customer):
@@ -43,8 +46,8 @@ class teachersResources(resources.ModelResource):
     teacher_id = Field(attribute="teacher_id", column_name="学（工）号")
     teacher_name = Field(attribute="teacher_name", column_name="教师姓名")
     teacher_department = Field(
-        attribute="teacher_department", column_name="教师职称")
-    teacher_phone = Field(attribute="teacher_phone", column_name="教师联系方式")
+        attribute="teacher_department", column_name="职务")
+    teacher_phone = Field(attribute="teacher_phone", column_name="联系方式")
     is_valided = Field(attribute="is_valided", column_name="审核结果")
 
     class Meta:

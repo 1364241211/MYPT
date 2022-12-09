@@ -12,7 +12,7 @@ export interface customer {
   department_name: string;
   apartment: string;
   grade: string;
-  apartment_id: number;
+  apartment_id: string;
 }
 // 教师结构
 export interface teacher {
@@ -551,7 +551,7 @@ export const options = [
   },
 ];
 
-export const apratment = [
+export const apartment = [
   { text: "男生宿舍", value: "1" },
   { text: "女生宿舍", value: "2" },
   { text: "男女混合宿舍", value: "3" },

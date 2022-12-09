@@ -27,7 +27,7 @@
           required
         >
         </van-field>
-        <van-field
+        <!-- <van-field
           type="text"
           v-model="form.student_id"
           name="student_id"
@@ -35,8 +35,8 @@
           placeholder="请输入学生工号"
           required
         >
-        </van-field>
-        <van-field
+        </van-field> -->
+        <!-- <van-field
           v-model="form.class_name"
           name="class_name"
           label="学生班级"
@@ -46,19 +46,29 @@
           is-link
           readonly
           @click="showPicker = true"
+        > 
+        </van-field> -->
+        <van-field
+          v-model="form.class_name"
+          name="class_name"
+          label="学生班级"
+          placeholder="请选择学生班级"
+          required
+          is-link
+          :rules="formRules.class_name"
+          @click="showPicker = true"
         >
         </van-field>
         <van-popup
           :show="showPicker"
           round
           position="bottom"
-          style="width: 100vw"
+          style="width: 100vw; height: 45vh"
         >
-          <van-cascader
-            v-model="cascaderValue"
+          <cascader-comp
+            :title="'请选择学生班级'"
             :options="options"
-            @cliose="showPicker = false"
-            @finish="onfinsh"
+            @on-finish="onFinish"
           />
         </van-popup>
         <van-field
@@ -76,15 +86,29 @@
           :show="showApartmentPicker"
           round
           position="bottom"
-          style="width: 100vw"
+          style="width: 100vw; height: 35vh"
         >
-          <van-cascader
-            v-model="cascaderApartmentValue"
-            :options="apratment"
-            @cliose="showApartmentPicker = false"
-            @finish="onApartmentfinsh"
+          <cascader-comp-a-vue
+            :options="apartment"
+            :title="'请选择学生寝室'"
+            @on-finish="onApartmentFinish"
           />
+          <!-- <van-cascader
+            :options="apartment"
+            v-model="cascaderapartmentvalue"
+            @close="showapartmentpicker = false"
+            @finish="onapartmentfinish"
+          /> -->
         </van-popup>
+        <van-field
+          type="text"
+          v-model="form.apartment_id"
+          name="apartment_id"
+          label="学生寝室号"
+          placeholder="请输入学生寝室号"
+          required
+        >
+        </van-field>
         <van-field
           name="customer_photo"
           type="file"
@@ -186,7 +210,7 @@
         </div>
       </div>
     </van-popup>
-    <van-popup
+    <!-- <van-popup
       v-model:show="dialogShow"
       :close-on-click-overlay="false"
       :closeable="dialogCancelBtn"
@@ -196,22 +220,26 @@
     >
       <h2 style="padding: 0; margin: 0.5vh 0vw; color: #2c3e50">通知!</h2>
       <component :is="PreviewMdVue" :edId="'adDesign'" :type="1"></component>
-    </van-popup>
+    </van-popup>-->
   </div>
 </template>
 
 <script lang="ts" setup>
 import { onMounted, reactive, ref } from "vue";
 import { FieldRule, FormInstance, Notify } from "vant";
-import type { CascaderOption } from "vant";
+import { showNotify } from "vant";
+// import { FieldRule, FormInstance, showshowNotify } from "vant";
 import PreviewMdVue from "./PreviewMd.vue";
+import type { CascaderProps, CascaderOption, CascaderFieldNames } from "vant";
+import CascaderComp from "./CascaderComp.vue";
+import CascaderCompAVue from "./CascaderCompA.vue";
 
 import router from "../router";
 import checkID from "../util/RegexVaild";
 import service from "../util/api";
 import type { classType, resMessage } from "../types";
 import { useRequest } from "../hooks/useReqest";
-import { METHOD, options, apratment } from "../types";
+import { METHOD, options, apartment } from "../types";
 import { useImageCompress } from "../hooks/useImageCompress";
 
 const dialogShow = ref(false);
@@ -226,12 +254,12 @@ const formInstance = ref<FormInstance>();
 const form = reactive({
   customer_name: "",
   customer_id: "",
-  student_id: "",
+  student_id: "0",
   class_name: "",
   class_id: 0,
   customer_photo: "",
   department_name: "",
-  apartment_id: 0,
+  apartment_id: "",
   apartment: "",
   grade: "",
 });
@@ -306,7 +334,7 @@ const chooseFile = () => {
         console.log(previewAvatar.value);
       });
     } else {
-      Notify({ type: "danger", message: "图片类型只能为.jpg .jpeg .png" });
+      showNotify({ type: "danger", message: "图片类型只能为.jpg .jpeg .png" });
     }
   });
   fileInput.value?.click();
@@ -321,7 +349,7 @@ const clearImage = () => {
   }
 };
 
-// 用户身份身份证是否存在
+// 教师工号是否存在
 const idIsExist = ref(false);
 
 // 提交post请求到服务器
@@ -341,7 +369,7 @@ const subPost = async () => {
       department_name: form.department_name,
       grade: form.grade,
       customer_photo: `${form.customer_name}_${
-        form.student_id
+        form.customer_id
       }.${fileInput.value?.files?.item(0)?.type.replace("image/", "")}`,
     })
   );
@@ -351,7 +379,7 @@ const subPost = async () => {
         {
           // 上传用户信息成功时，上传用户头像
           await uploadImage();
-          Notify({ type: "success", message: "提交成功,两秒后跳转。" });
+          showNotify({ type: "success", message: "提交成功,两秒后跳转。" });
           setTimeout(() => {
             router.push({ name: "success" });
           }, 2000);
@@ -360,7 +388,7 @@ const subPost = async () => {
         break;
       case 400:
         {
-          Notify({
+          showNotify({
             type: "danger",
             message: "提交失败，可能网路有波动,请稍后提交!",
           });
@@ -368,7 +396,7 @@ const subPost = async () => {
         break;
     }
   } else if (error.value) {
-    Notify({ type: "danger", message: error.value });
+    showNotify({ type: "danger", message: error.value });
   }
 };
 
@@ -381,7 +409,7 @@ const enterUpdateCus = async () => {
 // 当用户点击提交时，提交表单继续规则检验
 const submitForm = () => {
   if (fileInput.value?.value.length === 0) {
-    Notify({ type: "danger", message: "请选择学生照片" });
+    showNotify({ type: "danger", message: "请选择学生照片" });
     return;
   }
   console.log(form);
@@ -407,7 +435,10 @@ const submitForm = () => {
         });
     })
     .catch(() => {
-      Notify({ type: "danger", message: "表单字段验证失败，请检查后提交!" });
+      showNotify({
+        type: "danger",
+        message: "表单字段验证失败，请检查后提交!",
+      });
       wait.value = false;
     });
 };
@@ -431,27 +462,26 @@ const uploadImage = async (): Promise<void> => {
       case 200:
     }
   } else if (error.value) {
-    Notify({ type: "danger", message: error.value });
+    showNotify({ type: "danger", message: error.value });
   }
 };
 
 const cascaderValue = ref("");
-const onfinsh = ({ selectedOptions }: any) => {
+const onFinish = (selectedValue: any) => {
   showPicker.value = false;
-  console.log(selectedOptions);
-  form.department_name = selectedOptions.at(0)?.text!;
-  form.grade = selectedOptions.at(1)?.text!;
-  form.class_name = selectedOptions.at(2)?.text!;
+  console.log(selectedValue);
   console.log(form);
+  form.department_name = selectedValue.department;
+  form.grade = selectedValue.grade;
+  form.class_name = selectedValue.class;
 };
 // 寝室选择
 const showApartmentPicker = ref(false);
 const cascaderApartmentValue = ref("");
 
-const onApartmentfinsh = ({ selectedOptions }: any) => {
+const onApartmentFinish = (selectedValue: string) => {
   showApartmentPicker.value = false;
-  form.apartment = selectedOptions.at(0)?.text!;
-  form.apartment_id = selectedOptions.at(0)?.value! as number;
+  form.apartment = selectedValue;
   console.log(form);
 };
 
@@ -470,6 +500,7 @@ onMounted(() => {
 <style lang="scss" scoped>
 .main {
   height: 90vh;
+  overflow: scroll;
 
   header {
     color: white;

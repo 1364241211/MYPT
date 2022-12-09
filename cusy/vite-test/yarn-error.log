@@ -1,30 +1,25 @@
 Arguments: 
-  /opt/homebrew/Cellar/node/18.6.0/bin/node /opt/homebrew/bin/yarn add @types/md-editor-v3
+  /usr/local/bin/node /usr/local/bin/yarn
 
 PATH: 
-  /opt/homebrew/bin:/opt/homebrew/sbin:/Library/Frameworks/Python.framework/Versions/3.9/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/er/nvim-macos/bin
+  /opt/anaconda3/bin:/opt/anaconda3/condabin:/Library/Frameworks/Python.framework/Versions/3.9/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/chenlonghai/.cargo/bin
 
 Yarn version: 
   1.22.19
 
 Node version: 
-  18.6.0
+  18.12.1
 
 Platform: 
   darwin arm64
 
 Trace: 
-  Error: https://registry.npm.taobao.org/@types%2fmd-editor-v3: [NOT_FOUND] @types/md-editor-v3 not found
-      at params.callback [as _callback] (/opt/homebrew/lib/node_modules/yarn/lib/cli.js:66145:18)
-      at self.callback (/opt/homebrew/lib/node_modules/yarn/lib/cli.js:140890:22)
-      at Request.emit (node:events:513:28)
-      at Request.<anonymous> (/opt/homebrew/lib/node_modules/yarn/lib/cli.js:141862:10)
-      at Request.emit (node:events:513:28)
-      at Gunzip.<anonymous> (/opt/homebrew/lib/node_modules/yarn/lib/cli.js:141784:12)
-      at Object.onceWrapper (node:events:627:28)
-      at Gunzip.emit (node:events:513:28)
-      at endReadableNT (node:internal/streams/readable:1359:12)
-      at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+  SyntaxError: /Users/chenlonghai/src/python/MYProject/MYPT/cusy/vite-test/package.json: Unexpected token / in JSON at position 206
+      at JSON.parse (<anonymous>)
+      at /usr/local/lib/node_modules/yarn/lib/cli.js:1629:59
+      at Generator.next (<anonymous>)
+      at step (/usr/local/lib/node_modules/yarn/lib/cli.js:310:30)
+      at /usr/local/lib/node_modules/yarn/lib/cli.js:321:13
 
 npm manifest: 
   {
@@ -37,8 +32,11 @@ npm manifest:
       "preview": "vite preview"
     },
     "dependencies": {
+      // "@babel/polyfill": "^7.12.1",
       "@element-plus/icons": "^0.0.11",
       "@types/crypto-js": "^4.1.1",
+      "@types/node": "^18.11.11",
+      "@vant/compat": "^1.0.0",
       "@vitejs/plugin-legacy": "^2.0.0",
       "add": "^2.0.6",
       "axios": "^0.27.2",
@@ -47,6 +45,7 @@ npm manifest:
       "eslint-plugin-vue": "^9.2.0",
       "image-conversion": "^2.1.1",
       "jwt-decode": "^3.1.2",
+      "md-editor-v3": "^2.2.1",
       "node-sass": "^7.0.1",
       "pinia": "^2.0.14",
       "sass": "^1.53.0",
@@ -55,7 +54,7 @@ npm manifest:
       "terser": "^5.14.2",
       "unplugin-auto-import": "^0.9.2",
       "unplugin-vue-components": "^0.21.0",
-      "vant": "^3.5.2",
+      "vant": "^4.0.0",
       "vue": "^3.2.25",
       "vue-router": "4",
       "vue3-cookies": "^1.0.6",
@@ -108,6 +107,14 @@ Lockfile:
     version "7.18.6"
     resolved "https://registry.npmmirror.com/@babel/parser/-/parser-7.18.6.tgz"
     integrity sha512-uQVSa9jJUe/G/304lXspfWVpKpK4euFLgGiMQFOCpM/bgcAdeoHwi/OQz23O9GK2osz26ZiXRRV9aV+Yl1O8tw==
+  
+  "@babel/polyfill@^7.12.1":
+    version "7.12.1"
+    resolved "https://registry.npmmirror.com/@babel/polyfill/-/polyfill-7.12.1.tgz#1f2d6371d1261bbd961f3c5d5909150e12d0bd96"
+    integrity sha512-X0pi0V6gxLi6lFZpGmeNa4zxtwEmCs42isWLNjZZDE0Y8yVfgu0T2OAHlzBbdYlqbW/YXVvoBHpATEM+goCj8g==
+    dependencies:
+      core-js "^2.6.5"
+      regenerator-runtime "^0.13.4"
   
   "@babel/standalone@^7.18.8":
     version "7.18.9"
@@ -252,11 +259,6 @@ Lockfile:
       mkdirp "^1.0.4"
       rimraf "^3.0.2"
   
-  "@popperjs/core@^2.9.2":
-    version "2.11.5"
-    resolved "https://registry.npmmirror.com/@popperjs/core/-/core-2.11.5.tgz"
-    integrity sha512-9X2obfABZuDVLCgPK9aX0a/x4jaOEweTTWE2+9sr0Qqqevj2Uv5XorvusThmc9XGYpS9yI+fhh8RTafBtGposw==
-  
   "@popperjs/core@npm:@sxzz/popperjs-es@^2.11.7":
     version "2.11.7"
     resolved "https://registry.npmmirror.com/@sxzz/popperjs-es/-/popperjs-es-2.11.7.tgz"
@@ -292,10 +294,20 @@ Lockfile:
     resolved "https://registry.npmmirror.com/@types/lodash/-/lodash-4.14.182.tgz"
     integrity sha512-/THyiqyQAP9AfARo4pF+aCGcyiQ94tX/Is2I7HofNRqoYLgN1PBoOWu2/zTA5zMxzP5EFutMtWtGAFRKUe961Q==
   
+  "@types/marked@^4.0.3":
+    version "4.0.3"
+    resolved "https://registry.npmmirror.com/@types/marked/-/marked-4.0.3.tgz#2098f4a77adaba9ce881c9e0b6baf29116e5acc4"
+    integrity sha512-HnMWQkLJEf/PnxZIfbm0yGJRRZYYMhb++O9M36UCTA9z53uPvVoSlAwJr3XOpDEryb7Hwl1qAx/MV6YIW1RXxg==
+  
   "@types/minimist@^1.2.0":
     version "1.2.2"
     resolved "https://registry.npmmirror.com/@types/minimist/-/minimist-1.2.2.tgz"
     integrity sha512-jhuKLIRrhvCPLqwPcx6INqmKeiA5EWrsCOPhrlFSrbrmU4ZMPjj5Ul/oLCMDO98XRUIwVm78xICz4EPCektzeQ==
+  
+  "@types/node@^18.11.11":
+    version "18.11.11"
+    resolved "https://registry.npmmirror.com/@types/node/-/node-18.11.11.tgz#1d455ac0211549a8409d3cdb371cd55cc971e8dc"
+    integrity sha512-KJ021B1nlQUBLopzZmPBVuGU9un7WJd/W4ya7Ih02B4Uwky5Nja0yGYav2EfYIk0RR2Q9oVhf60S2XR1BCWJ2g==
   
   "@types/normalize-package-data@^2.4.0":
     version "2.4.1"
@@ -307,22 +319,20 @@ Lockfile:
     resolved "https://registry.npmmirror.com/@types/web-bluetooth/-/web-bluetooth-0.0.14.tgz"
     integrity sha512-5d2RhCard1nQUC3aHcq/gHzWYO6K0WJmAbjO7mQJgCQKtZpgXxv1rOM6O/dBDhDYYVutk1sciOgNSe+5YyfM8A==
   
-  "@vant/icons@^1.8.0":
-    version "1.8.0"
-    resolved "https://registry.npmmirror.com/@vant/icons/-/icons-1.8.0.tgz"
-    integrity sha512-sKfEUo2/CkQFuERxvkuF6mGQZDKu3IQdj5rV9Fm0weJXtchDSSQ+zt8qPCNUEhh9Y8shy5PzxbvAfOOkCwlCXg==
+  "@vant/compat@^1.0.0":
+    version "1.0.0"
+    resolved "https://registry.npmmirror.com/@vant/compat/-/compat-1.0.0.tgz#9830295aee54ec1f2e69f0970771a1d7bb2434a4"
+    integrity sha512-u3YOaLkz/5qtF+57hhveZWYdPHSpaN01WNbuS5WZAD7PNTeF7AqKvQ7Ws8KK4e2lCWN+FeRWfNuCk0xv6TxAvw==
   
-  "@vant/popperjs@^1.2.1":
-    version "1.2.1"
-    resolved "https://registry.npmmirror.com/@vant/popperjs/-/popperjs-1.2.1.tgz"
-    integrity sha512-qzQlrPE4aOsBzfrktDVwzQy/QICCTKifmjrruhY58+Q2fobUYp/T9QINluIafzsD3VJwgP8+HFVLBsyDmy3VZQ==
-    dependencies:
-      "@popperjs/core" "^2.9.2"
+  "@vant/popperjs@^1.3.0":
+    version "1.3.0"
+    resolved "https://registry.npmmirror.com/@vant/popperjs/-/popperjs-1.3.0.tgz#e0eff017124b5b2352ef3b36a6df06277f4400f2"
+    integrity sha512-hB+czUG+aHtjhaEmCJDuXOep0YTZjdlRR+4MSmIFnkCQIxJaXLQdSsR90XWvAI2yvKUI7TCGqR8pQg2RtvkMHw==
   
-  "@vant/use@^1.4.1":
-    version "1.4.1"
-    resolved "https://registry.npmmirror.com/@vant/use/-/use-1.4.1.tgz"
-    integrity sha512-YonNN0SuJLEJuqdoMcVAJm2JUZWkHNrW81QzeF6FLyG5HFUGlmTM5Sby7gdS3Z/8UDMlkWRQpJxBWbmVzmUWxQ==
+  "@vant/use@^1.4.3":
+    version "1.4.3"
+    resolved "https://registry.npmmirror.com/@vant/use/-/use-1.4.3.tgz#0c542fe01a1439878e4aa8779d1791e189610d30"
+    integrity sha512-rSnETN7P9qT1WbItMpQxBqe3cHeK2ZFYp1sCxWUXaTeI71TqA8sOdzC36ledZ36NQgFNTch9fsRPYOkrCgZfQA==
   
   "@vitejs/plugin-legacy@^2.0.0":
     version "2.0.0"
@@ -948,6 +958,11 @@ Lockfile:
     version "0.5.2"
     resolved "https://registry.npmjs.org/content-disposition/-/content-disposition-0.5.2.tgz"
     integrity sha512-kRGRZw3bLlFISDBgwTSA1TMBFN6J6GWDeubmDE3AF+3+yXL8hTWv8r5rkLbqYXY4RjPk/EzHnClI3zQf1cFmHA==
+  
+  core-js@^2.6.5:
+    version "2.6.12"
+    resolved "https://registry.npmmirror.com/core-js/-/core-js-2.6.12.tgz#d9333dfa7b065e347cc5682219d6f690859cc2ec"
+    integrity sha512-Kb2wC0fvsWfQrgk8HU5lW6U/Lcs8+9aaYcy4ZFc6DDlo4nZ7n70dEgE5rtR0oG6ufKDUnrwfWL1mXR5ljDatrQ==
   
   core-js@^3.23.4:
     version "3.23.5"
@@ -2101,6 +2116,13 @@ Lockfile:
     resolved "https://registry.npmmirror.com/map-obj/-/map-obj-4.3.0.tgz"
     integrity sha512-hdN1wVrZbb29eBGiGjJbeP8JbKjq1urkHJ/LIP/NY48MZ1QVXUsQBV1G1zvYFHn1XE06cwjBsOI2K3Ulnj1YXQ==
   
+  md-editor-v3@^2.2.1:
+    version "2.2.1"
+    resolved "https://registry.npmmirror.com/md-editor-v3/-/md-editor-v3-2.2.1.tgz#96a88f86348c82b9f04f8c1eb3982c009ea63310"
+    integrity sha512-nOd8mlEhvC99l9Y8pDMwEi6EdCAeBp88Ffl24We+2uz3/Iympctm92L1qyNicONJRhtZJacQ4oWTQGMYKGAxVg==
+    dependencies:
+      "@types/marked" "^4.0.3"
+  
   memoize-one@^6.0.0:
     version "6.0.0"
     resolved "https://registry.npmmirror.com/memoize-one/-/memoize-one-6.0.0.tgz"
@@ -2731,6 +2753,11 @@ Lockfile:
       indent-string "^4.0.0"
       strip-indent "^3.0.0"
   
+  regenerator-runtime@^0.13.4:
+    version "0.13.11"
+    resolved "https://registry.npmmirror.com/regenerator-runtime/-/regenerator-runtime-0.13.11.tgz#f6dca3e7ceec20590d07ada785636a90cdca17f9"
+    integrity sha512-kY1AZVr2Ra+t+piVaJ4gxaFaReZVH40AKNo7UCX6W+dEwBo/2oZJzqfuN1qLq1oL45o56cPaTXELwrTh8Fpggg==
+  
   regenerator-runtime@^0.13.9:
     version "0.13.9"
     resolved "https://registry.npmmirror.com/regenerator-runtime/-/regenerator-runtime-0.13.9.tgz#8925742a98ffd90814988d7566ad30ca3b263b52"
@@ -3354,14 +3381,13 @@ Lockfile:
       spdx-correct "^3.0.0"
       spdx-expression-parse "^3.0.0"
   
-  vant@^3.5.2:
-    version "3.5.2"
-    resolved "https://registry.npmmirror.com/vant/-/vant-3.5.2.tgz"
-    integrity sha512-RR2SEE/ZHH30Z7a9iLBxskvSzs8rwaU2vDhR7HtBjgXreADzGjU75XxV2ogwrtaj2YU1IaBYC8xXjn3VXRxREw==
+  vant@^4.0.0:
+    version "4.0.2"
+    resolved "https://registry.npmmirror.com/vant/-/vant-4.0.2.tgz#629c9b4f5ac020f8b0c74cade4aa8ffef3bfe3b5"
+    integrity sha512-qv3YaysqDbDI4N1peuck0v2g/Zz2rH2ao2qLNn166ZsuPadCmwsuwaypT+eFWElAzj0P1f9aUEmFmdJJwGuRfw==
     dependencies:
-      "@vant/icons" "^1.8.0"
-      "@vant/popperjs" "^1.2.1"
-      "@vant/use" "^1.4.1"
+      "@vant/popperjs" "^1.3.0"
+      "@vant/use" "^1.4.3"
   
   vary@~1.1.2:
     version "1.1.2"

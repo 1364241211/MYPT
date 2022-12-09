@@ -53,7 +53,7 @@ class customerSerializer(serializers.ModelSerializer):
     department_name = serializers.CharField()
     apartment = serializers.CharField()
     grade = serializers.CharField()
-    apartment_id = serializers.IntegerField()
+    apartment_id = serializers.CharField()
 
     def create(self, validated_data):
         return Customers.objects.create(**validated_data)
@@ -88,6 +88,7 @@ class teacherSerializer(serializers.ModelSerializer):
     teacher_id = serializers.CharField()
     teacher_photo = serializers.CharField()
     teacher_department = serializers.CharField()
+    is_valided = serializers.IntegerField()
 
     def create(self, validated_data):
         return Teacher.objects.create(**validated_data)

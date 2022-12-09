@@ -184,7 +184,7 @@ class customerGeneralApi(ModelViewSet):
         except Exception as e:
             return Response(message('failed', 404, e.args[0]), status=200)
         if customer is not None:
-            request.data.update({"is_valided": customer.is_valided})
+            request.data.update({"is_valided": 0})
             serializer = customerSerializer(customer, request.data)
             if not serializer.is_valid():
                 return Response(message(status='failed', code=403, message=serializer.errors), status=200)

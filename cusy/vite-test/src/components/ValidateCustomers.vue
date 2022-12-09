@@ -77,11 +77,11 @@
         label="学生身份证号"
         align="center"
       ></el-table-column>
-      <el-table-column
+      <!-- <el-table-column
         prop="student_id"
         label="学生工号"
         align="center"
-      ></el-table-column>
+      ></el-table-column> -->
       <el-table-column
         prop="department_name"
         label="学生专业"

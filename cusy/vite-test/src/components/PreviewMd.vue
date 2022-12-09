@@ -3,6 +3,7 @@
 import { ref, onMounted } from "vue";
 import { useRequest } from "../hooks/useReqest";
 import { Notify } from "vant";
+import { showNotify } from "vant";
 import MdEditor from "md-editor-v3";
 import { resMessage } from "../types";
 
@@ -17,7 +18,7 @@ onMounted(async () => {
       ? ((res.value as resMessage).info as string)
       : "";
   } else if (error.value) {
-    Notify({ type: "danger", message: error.value });
+    showNotify({ type: "danger", message: error.value });
   }
 });
 </script>

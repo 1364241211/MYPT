@@ -1,6 +1,6 @@
 <template>
   <div class="main">
-    <header>东辰饭卡登记表</header>
+    <header>绵职校（教师）登记表</header>
     <van-form
       colon
       label-width="8em"
@@ -21,8 +21,8 @@
         <van-field
           v-model="form.teacher_id"
           name="teacher_id"
-          label="教师工号"
-          placeholder="请输入教师工号"
+          label="教师身份证号"
+          placeholder="请输入教师身份证号"
           required
         >
         </van-field>
@@ -30,14 +30,14 @@
           type="text"
           v-model="form.teacher_department"
           name="teacher_department"
-          label="职称"
-          placeholder="请输入职称"
+          label="职务"
+          placeholder="请输入职务"
           required
         >
         </van-field>
         <van-field
           type="text"
-          v-model="form.phone"
+          v-model="form.teacher_phone"
           name="phone"
           label="联系方式"
           placeholder="请输入联系方式"
@@ -126,10 +126,11 @@
       </van-cell-group>
     </van-form>
     <van-popup
-      :show="idIsExist"
+      :show="teacherIdIsExist"
       position="bottom"
       :close-on-click-overlay="false"
       style="height: 40vh;width: 100vw; }"
+      teleport="body"
     >
       <div class="wrapper">
         <h2>通知！</h2>
@@ -151,6 +152,7 @@
 <script lang="ts" setup>
 import { onMounted, reactive, ref } from "vue";
 import { FieldRule, FormInstance, Notify } from "vant";
+import { showNotify } from "vant";
 
 import router from "../router";
 import checkID from "../util/RegexVaild";
@@ -173,7 +175,8 @@ const form = reactive({
   teacher_name: "",
   teacher_id: "",
   teacher_department: "",
-  phone: "",
+  teacher_photo: "",
+  teacher_phone: "",
 });
 
 const onConfirm = (value: any) => {
@@ -240,7 +243,7 @@ const chooseFile = () => {
         console.log(previewAvatar.value);
       });
     } else {
-      Notify({ type: "danger", message: "图片类型只能为.jpg .jpeg .png" });
+      showNotify({ type: "danger", message: "图片类型只能为.jpg .jpeg .png" });
     }
   });
   fileInput.value?.click();
@@ -256,7 +259,7 @@ const clearImage = () => {
 };
 
 // 用户身份身份证是否存在
-const idIsExist = ref(false);
+const teacherIdIsExist = ref(false);
 
 // 提交post请求到服务器
 const subPost = async () => {
@@ -267,10 +270,10 @@ const subPost = async () => {
       teacher_id: form.teacher_id,
       teacher_name: form.teacher_name,
       teacher_department: form.teacher_department,
-      teacher_phone: form.phone,
-      teacher_photo: `${form.teacher_id}.${fileInput.value?.files
-        ?.item(0)
-        ?.type.replace("image/", "")}`,
+      teacher_phone: form.teacher_phone,
+      teacher_photo: `${form.teacher_name}_${
+        form.teacher_id
+      }.${fileInput.value?.files?.item(0)?.type.replace("image/", "")}`,
     })
   );
   if (res.value) {
@@ -279,7 +282,7 @@ const subPost = async () => {
         {
           // 上传用户信息成功时，上传用户头像
           await uploadImage();
-          Notify({ type: "success", message: "提交成功,两秒后跳转。" });
+          showNotify({ type: "success", message: "提交成功,两秒后跳转。" });
           setTimeout(() => {
             router.push({ name: "success" });
           }, 2000);
@@ -288,7 +291,7 @@ const subPost = async () => {
         break;
       case 400:
         {
-          Notify({
+          showNotify({
             type: "danger",
             message: "提交失败，可能网路有波动,请稍后提交!",
           });
@@ -296,7 +299,7 @@ const subPost = async () => {
         break;
     }
   } else if (error.value) {
-    Notify({ type: "danger", message: error.value });
+    showNotify({ type: "danger", message: error.value });
   }
 };
 const uploadImage = async (): Promise<void> => {
@@ -319,13 +322,13 @@ const uploadImage = async (): Promise<void> => {
       case 200:
     }
   } else if (error.value) {
-    Notify({ type: "danger", message: error.value });
+    showNotify({ type: "danger", message: error.value });
   }
 };
 
 // 当用户点击是按钮时触发事件
 const enterUpdateCus = async () => {
-  idIsExist.value = false;
+  teacherIdIsExist.value = false;
   await subPost();
 };
 
@@ -346,14 +349,17 @@ const submitForm = () => {
               break;
             case 200:
               {
-                idIsExist.value = true;
+                teacherIdIsExist.value = true;
               }
               break;
           }
         });
     })
     .catch(() => {
-      Notify({ type: "danger", message: "表单字段验证失败，请检查后提交!" });
+      showNotify({
+        type: "danger",
+        message: "表单字段验证失败，请检查后提交!",
+      });
       wait.value = false;
     });
 };
@@ -372,6 +378,7 @@ onMounted(() => {
 <style lang="scss" scoped>
 .main {
   height: 90vh;
+  overflow: scroll;
 
   header {
     color: white;
